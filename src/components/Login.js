@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box, Heading, Text, Button} from 'rebass';
 
 const client_id = process.env.REACT_APP_CLIENT_ID;
 const redirect_uri = 'http://localhost:3000/dashboard';
@@ -24,10 +25,21 @@ export default function (props) {
 
   return (
     <>
-      <h1>Login</h1>
-      <div>
-        <button onClick={login}>login</button>
-      </div>
+      <Box
+        sx={{
+          p: 4,
+          color: 'text',
+          bg: 'background',
+          fontFamily: 'body',
+          fontWeight: 'body',
+          lineHeight: 'body',
+        }}>
+        <Heading variant='display'>Login</Heading>
+        <Text mb={4}>You need to grant access from spotify to use this app</Text>
+        <Button mr={3} onClick={login}>
+          Login with Spotify
+        </Button>
+      </Box>
     </>
   )
 }
