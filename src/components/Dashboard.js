@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import { Flex, Text, Box } from 'rebass'
+import TokenContext from '../contexts/access-token';
+import Tracks from './tracks';
 
 export default function Dashboard(props) {
-  const [accessToken, setAccessToken] = useState('')
   const [userInfo, setUserInfo] = useState({})
+  const {accessToken, setAccessToken} = useContext(TokenContext)
 
   useEffect(() => {
     setAccessToken(window.location.href.match(/(?<=access_token=).*?(?=&)/)[0])
-  }, [accessToken])
+  }, [accessToken, setAccessToken])
 
   useEffect(() => {
     if (accessToken) {
@@ -23,8 +26,8 @@ export default function Dashboard(props) {
       }
 
       try {
-        getUserInfo(); 
-      } catch(err) {
+        getUserInfo();
+      } catch (err) {
         console.log(err)
       }
     }
@@ -32,8 +35,22 @@ export default function Dashboard(props) {
 
   return (
     <>
-      <h1>Dashboard - {userInfo.display_name || 'Please return to home and login'}</h1>
-      <Link to="/home" >Home</Link>
+      <Flex
+        sx={{
+          p: 2,
+          color: 'text',
+          bg: 'background',
+        }}
+        alignItems='center'>
+        <Text sx={{p: 2, color: 'text', fontWeight: 'heading'}}>Dashboard</Text>
+        <Box mx='auto' />
+        <Link to="/home">
+        <Text sx={{p: 2, color: 'text', fontWeight: 'heading','&:hover': {
+            color: 'secondary'
+          }}}>{userInfo.display_name || 'Please return to home and login'}</Text>
+        </Link>
+      </Flex>
+      <Tracks/>
     </>
   )
 }
