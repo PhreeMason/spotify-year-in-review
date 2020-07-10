@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Flex, Text, Box } from 'rebass'
 import TokenContext from '../contexts/access-token';
 import Tracks from './tracks';
+import Artists from './artists';
+import Albums from './albums';
 
 export default function Dashboard(props) {
   const [userInfo, setUserInfo] = useState({})
@@ -50,7 +52,11 @@ export default function Dashboard(props) {
           }}}>{userInfo.display_name || 'Please return to home and login'}</Text>
         </Link>
       </Flex>
-      <Tracks/>
+      <Tracks />
+      <br></br>
+      <Artists />
+      <br></br>
+      <Albums />
     </>
   )
 }
